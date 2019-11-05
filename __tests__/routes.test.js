@@ -1,5 +1,6 @@
 'use strict';
 
+require('dotenv').config();
 const app = require('../src/server');
 const User = require('../src/models/userModel');
 const supergoose = require('./supergoose');
@@ -39,7 +40,7 @@ describe('Testing express routes', () => {
 
 
 
-   xdescribe('Resource routes', () => {
+   describe('Resource routes', () => {
     it('should be able to fetch images', async (done) => {
     const mongoUser = await User.findOne({username: 'userman'});
     const token = mongoUser.generateToken();

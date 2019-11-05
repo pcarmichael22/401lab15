@@ -33,5 +33,6 @@
   "bugs": {
     "url": "https://github.com/pcarmichael22/401lab15/issues"
   },
-  "homepage": "https://github.com/pcarmichael22/401lab15#readme"
+  "homepage": "https://github.com/pcarmichael22/401lab15#readme",
+  "devDependencies": {}
 }

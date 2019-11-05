@@ -7,6 +7,11 @@ const Image = require('../src/models/imageModel');
 const User = require('../src/models/userModel');
 const auth = require('../src/auth/middleware');
 
+/**
+ * @route : /signup
+ * @params : user
+ * @input : request
+ */
 authRouter.post('/signup', (req, res, next) => {
     let user = new User(req.body);
     user.save()
@@ -19,19 +24,21 @@ authRouter.post('/signup', (req, res, next) => {
         }).catch(next);
 });
 
+/**
+ * @route : /signup
+ * @params : user
+ * @input : request
+ */
 authRouter.post('/signin', auth, (req, res, next) => {
     res.cookie('auth', req.token);
     res.send(req.token);
 });
 
-// authRouter.get('/oauth', (req,res,next) => {
-//   oauth(req)
-//     .then( token => {
-//       res.status(200).send(token);
-//     })
-//     .catch(next);
-// });
-
+/**
+ * @route : /images
+ * @params : req
+ * @input : {}
+ */
 authRouter.get('/images', (req, res, next) => {
     Image.find({})
         .then(data => {
@@ -40,6 +47,11 @@ authRouter.get('/images', (req, res, next) => {
         .catch(() => res.send('no images found '))
 })
 
+/**
+ * @route : /image/:id
+ * @params : user _id
+ * @input : request
+ */
 authRouter.get('/image/:id', (req, res, next) => {
     Image.findOne({
             _id: (req.params.id)
@@ -49,6 +61,11 @@ authRouter.get('/image/:id', (req, res, next) => {
         })
 })
 
+/**
+ * @route : /images/:userId
+ * @params : userId
+ * @input : request
+ */
 authRouter.get('/images/:userId', (req, res, next) => {
     Image.find({
             userId: (req.params.userId)
@@ -58,6 +75,11 @@ authRouter.get('/images/:userId', (req, res, next) => {
         })
 })
 
+/**
+ * @route : /images
+ * @params : new Image
+ * @input : request
+ */
 authRouter.post('/images', (req, res, next) => {
     let image = new Image(req.body);
     image.save()
@@ -66,6 +88,11 @@ authRouter.post('/images', (req, res, next) => {
         })
 })
 
+/**
+ * @route : /images/:id
+ * @params : id
+ * @input : request
+ */
 authRouter.put('/images/:id', async (req, res, next) => {
     const image = await Image.findByIdAndUpdate({
         _id: req.params.id
@@ -74,6 +101,11 @@ authRouter.put('/images/:id', async (req, res, next) => {
     res.send(image)
 })
 
+/**
+ * @route : /image/:id
+ * @params : id
+ * @input : request
+ */
 authRouter.delete('/image/:id', (req,res,next) => {
     Image.remove({id: req.params.id})
         .then(res.send('Successfully Deleted'))
